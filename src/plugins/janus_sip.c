@@ -5628,7 +5628,7 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 			/* FIXME Should we notify the user, in case the SIP INFO returned an error? */
 			break;
 		case nua_r_message:
-			JANUS_LOG(LOG_VERB, "[%s][%s]: %d %s\n", session->account.username, nua_event_name(event), status, phrase ? phrase : "??");
+			JANUS_LOG(LOG_VERB, "emrullah [%s][%s]: %d %s\n", session->account.username, nua_event_name(event), status, phrase ? phrase : "??");
 			/* Handle authetntication for SIP MESSAGE - eg. SippySoft Softswitch requires 401 authentication even if SIP user is registerered */
 			if(status == 401 || status == 407) {
 				JANUS_LOG(LOG_VERB, "emrullah TRACE 401 : \n");
