@@ -5671,6 +5671,7 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 				} else {
 					g_snprintf(secret, sizeof(secret), "%s", session->account.secret);
 				}
+				strcat(authuser, "@cch-nam.nsn-rdnet.net");
 				char auth[256];
 				memset(auth, 0, sizeof(auth));
 				g_snprintf(auth, sizeof(auth), "%s%s:%s:%s:%s%s",
