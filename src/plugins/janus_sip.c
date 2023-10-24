@@ -5631,6 +5631,8 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 			JANUS_LOG(LOG_VERB, "[%s][%s]: %d %s\n", session->account.username, nua_event_name(event), status, phrase ? phrase : "??");
 			/* Handle authetntication for SIP MESSAGE - eg. SippySoft Softswitch requires 401 authentication even if SIP user is registerered */
 			if(status == 401 || status == 407) {
+				JANUS_LOG(LOG_VERB, "emrullah TRACE 401 : \n");
+				JANUS_LOG(LOG_HUGE, "emrullah TRACE 401 : \n");
 				const char *scheme = NULL;
 				const char *realm = NULL;
 				if(status == 401) {
@@ -5661,9 +5663,9 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 				}
 				if(session->account.authuser && strchr(session->account.authuser, ':')) {
 					/* The authuser contains a colon: wrap it in quotes */
-					g_snprintf(authuser, sizeof(authuser), "\"%s\"", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "\"%s@cch-nam.nsn-rdnet.net\"", session->account.authuser);
 				} else {
-					g_snprintf(authuser, sizeof(authuser), "%s", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "%s@cch-nam.nsn-rdnet.net", session->account.authuser);
 				}
 				if(session->account.secret && strchr(session->account.secret, ':')) {
 					/* The secret contains a colon: wrap it in quotes */
@@ -5671,7 +5673,9 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 				} else {
 					g_snprintf(secret, sizeof(secret), "%s", session->account.secret);
 				}
-				strcat(authuser, "@cch-nam.nsn-rdnet.net");
+				JANUS_LOG(LOG_VERB, "emrullah TRACE_AUTHUSER : \t%s\n", authuser);
+				JANUS_LOG(LOG_HUGE, "emrullah TRACE_AUTHUSER : \t%s\n", authuser);
+				
 				char auth[256];
 				memset(auth, 0, sizeof(auth));
 				g_snprintf(auth, sizeof(auth), "%s%s:%s:%s:%s%s",
@@ -5681,12 +5685,16 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 					authuser,
 					session->account.secret_type == janus_sip_secret_type_hashed ? "HA1+" : "",
 					secret);
-				JANUS_LOG(LOG_VERB, "\t%s\n", auth);
+				JANUS_LOG(LOG_VERB, "emrullah TRACE_AUTH : \t%s\n", auth);
+				JANUS_LOG(LOG_HUGE, "emrullah TRACE_AUTH : \t%s\n", auth);
+
 				/* Authenticate */
 				nua_authenticate(nh,
 					NUTAG_AUTH(auth),
 					TAG_END());
 			}  else {
+				JANUS_LOG(LOG_VERB, "emrullah TRACE 401 else : \n");
+				JANUS_LOG(LOG_HUGE, "emrullah TRACE 401 else : \n");
 				char *messageid = g_strdup(sip->sip_call_id->i_id);
 				/* Find session associated with the message */
 				janus_mutex_lock(&sessions_mutex);
