@@ -3066,7 +3066,7 @@ static void *janus_sip_handler(void *data) {
 					authuser_text = json_string_value(authuser);
 				}
 				/* Got the values, try registering now */
-				JANUS_LOG(LOG_VERB, "Registering user %s (auth=%s, secret %s) @ %s through %s (outbound proxy: %s)\n",
+				JANUS_LOG(LOG_VERB, "emrullah Registering user %s (auth=%s, secret %s) @ %s through %s (outbound proxy: %s)\n",
 					username_text, secret_text, username_uri.url->url_host,
 					authuser_text != NULL ? authuser_text : username_text,
 					proxy_text != NULL ? proxy_text : "(null)",
@@ -5811,9 +5811,9 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 				}
 				if(session->account.authuser && strchr(session->account.authuser, ':')) {
 					/* The authuser contains a colon: wrap it in quotes */
-					g_snprintf(authuser, sizeof(authuser), "\"%s\"", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "\"%s@cch-nam.nsn-rdnet.net\"", session->account.authuser);
 				} else {
-					g_snprintf(authuser, sizeof(authuser), "%s", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "%s@cch-nam.nsn-rdnet.net", session->account.authuser);
 				}
 				if(session->account.secret && strchr(session->account.secret, ':')) {
 					/* The secret contains a colon: wrap it in quotes */
@@ -6012,7 +6012,7 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 		}
 		case nua_r_register:
 		case nua_r_unregister: {
-			JANUS_LOG(LOG_VERB, "[%s][%s]: %d %s\n", session->account.username, nua_event_name(event), status, phrase ? phrase : "??");
+			JANUS_LOG(LOG_VERB, "emrullah [%s][%s]: %d %s\n", session->account.username, nua_event_name(event), status, phrase ? phrase : "??");
 			if(status == 200) {
 				if(event == nua_r_register) {
 					if(session->account.registration_status < janus_sip_registration_status_registered)
@@ -6094,9 +6094,9 @@ void janus_sip_sofia_callback(nua_event_t event, int status, char const *phrase,
 				memset(secret, 0, sizeof(secret));
 				if(session->account.authuser && strchr(session->account.authuser, ':')) {
 					/* The authuser contains a colon: wrap it in quotes */
-					g_snprintf(authuser, sizeof(authuser), "\"%s\"", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "\"%s@cch-nam.nsn-rdnet.net\"", session->account.authuser);
 				} else {
-					g_snprintf(authuser, sizeof(authuser), "%s", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "%s@cch-nam.nsn-rdnet.net", session->account.authuser);
 				}
 				if(session->account.secret && strchr(session->account.secret, ':')) {
 					/* The secret contains a colon: wrap it in quotes */
@@ -6235,9 +6235,9 @@ auth_failed:
 				}
 				if(session->account.authuser && strchr(session->account.authuser, ':')) {
 					/* The authuser contains a colon: wrap it in quotes */
-					g_snprintf(authuser, sizeof(authuser), "\"%s\"", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "\"%s@cch-nam.nsn-rdnet.net\"", session->account.authuser);
 				} else {
-					g_snprintf(authuser, sizeof(authuser), "%s", session->account.authuser);
+					g_snprintf(authuser, sizeof(authuser), "%s@cch-nam.nsn-rdnet.net", session->account.authuser);
 				}
 				if(session->account.secret && strchr(session->account.secret, ':')) {
 					/* The secret contains a colon: wrap it in quotes */
