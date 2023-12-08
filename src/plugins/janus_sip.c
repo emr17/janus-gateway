@@ -2139,7 +2139,7 @@ void janus_sip_create_session(janus_plugin_session *handle, int *error) {
 	session->handle = handle;
 	session->account.identity = NULL;
 	session->account.force_udp = FALSE;
-	session->account.force_tcp = TRUE;
+	session->account.force_tcp = FALSE;
 	session->account.sips = FALSE;
 	session->account.rfc2543_cancel = FALSE;
 	session->account.username = NULL;
@@ -2934,7 +2934,7 @@ static void *janus_sip_handler(void *data) {
 			if(do_udp != NULL) {
 				force_udp = json_is_true(do_udp);
 			}
-			gboolean force_tcp = TRUE;
+			gboolean force_tcp = FALSE;
 			json_t *do_tcp = json_object_get(root, "force_tcp");
 			if(do_tcp != NULL) {
 				force_tcp = json_is_true(do_tcp);
